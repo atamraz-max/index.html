@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أذكار الصباح | تجربة روحانية تفاعلية</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                            950: '#022c22',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    fontFamily: {
+                        amiri: ['Amiri', 'serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Amiri & Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Marked.js for rendering AI markdown responses -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .font-quran {
+            font-family: 'Amiri', serif;
+        }
+
+        /* Subtle Islamic Geometric Pattern Background */
+        .islamic-pattern {
+            background-color: #fbfbf7;
+            background-image: radial-gradient(circle at 50% 50%, rgba(5, 150, 105, 0.04) 0%, transparent 60%),
+                              radial-gradient(circle at 100% 0%, rgba(217, 119, 6, 0.03) 0%, transparent 40%);
+        }
+        .dark .islamic-pattern {
+            background-color: #0b1311;
+            background-image: radial-gradient(circle at 50% 50%, rgba(5, 150, 105, 0.08) 0%, transparent 70%),
+                              radial-gradient(circle at 100% 0%, rgba(217, 119, 6, 0.05) 0%, transparent 50%);
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(5, 150, 105, 0.12);
+        }
+        .dark .glass-card {
+            background: rgba(18, 30, 26, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(5, 150, 105, 0.2);
+        }
+
+        /* Pulse and Active animations */
+        @keyframes tap-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.97); }
+            100% { transform: scale(1); }
+        }
+        .animate-tap {
+            animation: tap-pulse 0.22s ease-in-out;
+        }
+
+        /* Completed item glow */
+        .completed-glow {
+            border-color: #10b981 !important;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.02) 100%) !important;
+        }
+        .dark .completed-glow {
+            border-color: #059669 !important;
+            background: linear-gradient(135deg, rgba(6, 78, 59, 0.3) 0%, rgba(2, 44, 34, 0.1) 100%) !important;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+        }
+    </style>
+</head>
+<body class="islamic-pattern text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- Top Sticky Bar / Header -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-emerald-950/80 border-b border-emerald-900/10 dark:border-emerald-700/20 shadow-sm transition-colors">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-800 flex items-center justify-center text-white shadow-md shadow-emerald-700/20">
+                    <i class="fa-solid fa-kaaba text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold font-tajawal text-emerald-900 dark:text-emerald-300 leading-tight">أذكار الصباح</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">حفظٌ وبركةٌ ويقينٌ طوال اليوم</p>
+                </div>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-2">
+                <!-- Font size switcher -->
+                <div class="flex items-center bg-slate-100 dark:bg-emerald-900/40 rounded-xl p-1 border border-emerald-800/10">
+                    <button onclick="changeFontSize(-1)" title="تصغير الخط" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white dark:hover:bg-emerald-800 text-xs font-bold transition">
+                        A-
+                    </button>
+                    <button onclick="changeFontSize(1)" title="تكبير الخط" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white dark:hover:bg-emerald-800 text-sm font-bold transition">
+                        A+
+                    </button>
+                </div>
+
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" onclick="toggleTheme()" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-emerald-900/40 flex items-center justify-center hover:bg-emerald-50 dark:hover:bg-emerald-800/70 text-slate-700 dark:text-emerald-300 transition border border-emerald-800/10">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- Reset Counters Button -->
+                <button onclick="resetAllCounters()" title="إعادة ضبط العدادات" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-emerald-900/40 flex items-center justify-center hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/40 dark:hover:text-rose-400 text-slate-700 dark:text-emerald-300 transition border border-emerald-800/10">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Global Progress Bar -->
+        <div class="w-full bg-slate-200/80 dark:bg-emerald-950/70 h-1.5 relative overflow-hidden">
+            <div id="overallProgressBar" class="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-gold-500 transition-all duration-300 ease-out" style="width: 0%"></div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6 space-y-6">
+
+        <!-- Progress Overview & Audio Hub Card -->
+        <div class="glass-card rounded-2xl p-5 shadow-lg shadow-emerald-950/5">
+            <!-- Progress stats -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-200/60 dark:border-emerald-800/30 pb-4">
+                <div class="flex items-center gap-4">
+                    <div class="relative w-14 h-14 flex items-center justify-center">
+                        <svg class="w-14 h-14 -rotate-90">
+                            <circle cx="28" cy="28" r="23" stroke="currentColor" stroke-width="4" class="text-slate-200 dark:text-emerald-950/70 fill-none" />
+                            <circle id="circularProgress" cx="28" cy="28" r="23" stroke="currentColor" stroke-width="4" stroke-dasharray="144.5" stroke-dashoffset="144.5" class="text-emerald-600 dark:text-emerald-400 fill-none transition-all duration-500 ease-out stroke-round" />
+                        </svg>
+                        <span id="percentText" class="absolute text-xs font-bold font-tajawal text-emerald-800 dark:text-emerald-300">0%</span>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-bold text-slate-800 dark:text-emerald-200">إنجاز أذكار اليوم</h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
+                            أنجزت <span id="completedItemsCount" class="font-bold text-emerald-600 dark:text-emerald-400">0</span> من أصل <span id="totalItemsCount">0</span> ذكر
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Speech Automation Tools -->
+            <div class="flex flex-wrap items-center gap-2">
+                <button id="btnAutoPlayAll" onclick="toggleAutoPlayAll()" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm flex items-center gap-2 transition active:scale-95">
+                    <i id="autoPlayIcon" class="fa-solid fa-play"></i>
+                    <span id="autoPlayText">قراءة صوتية متتالية</span>
+                </button>
+                <button onclick="toggleAudioPlayerPanel()" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-emerald-900/40 text-slate-700 dark:text-emerald-300 hover:bg-slate-200 dark:hover:bg-emerald-800/60 flex items-center gap-2 transition">
+                    <i class="fa-solid fa-headphones"></i>
+                    <span>استماع تلاوة MP3</span>
+                </button>
+                <!-- AI Assistant Trigger Button -->
+                <button onclick="openAiChatModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 to-emerald-600 hover:from-amber-600 hover:to-emerald-700 text-white shadow-sm flex items-center gap-2 transition active:scale-95">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>مساعد الأذكار والتدبر (Gemini)</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Personalized Morning Dua Generator Card (Gemini-Powered) -->
+        <div class="glass-card rounded-2xl p-4 sm:p-5 shadow-sm border border-gold-500/30 dark:border-gold-500/20 bg-gradient-to-br from-amber-50/40 via-transparent to-emerald-50/40 dark:from-emerald-950/30 dark:to-emerald-900/10">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-600 dark:text-gold-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-sun"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-800 dark:text-emerald-100 flex items-center gap-2">
+                            <span>دعاء الصباح المخصص ليومك</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-600 text-white font-medium">ذكاء اصطناعي</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">اختر نيتك أو حالك هذا الصباح ليصيغ لك نموذج الذكاء الاصطناعي دعاءً ملائماً مستمداً من السنة النبوية</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 w-full md:w-auto">
+                    <select id="userMoodSelect" class="text-xs bg-white dark:bg-emerald-950 border border-slate-300 dark:border-emerald-700 rounded-xl px-3 py-2 text-slate-700 dark:text-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <option value="طلب التوفيق والبركة في العمل والرزق">💼 بركة ورزق وتوفيق</option>
+                        <option value="انشراح الصدر وطمأنينة القلب وإزالة القلق">🌿 طمأنينة وانشراح صدر</option>
+                        <option value="طلب العافية والشفاء ودفع الهم والبلاء">🤲 عافية وتفريج هم</option>
+                        <option value="التركيز والهمّة العالية وطلب العلم والنجاح">📚 طلب العلم والهمة والنجاح</option>
+                        <option value="شكر النعم وحفظ الأهل والذرية">🏡 شكر النعم وحفظ الأهل</option>
+                    </select>
+                    <button onclick="generatePersonalizedDua()" id="generateDuaBtn" class="whitespace-nowrap px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-sparkles"></i>
+                        <span>صياغة دعاء</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Dynamic Result Area for Generated Dua -->
+            <div id="personalizedDuaOutput" class="hidden mt-3 pt-3 border-t border-slate-200/60 dark:border-emerald-800/30 text-xs sm:text-sm">
+                <div class="p-3.5 rounded-xl bg-white/70 dark:bg-emerald-950/70 border border-emerald-600/20 leading-relaxed text-slate-800 dark:text-slate-100 font-tajawal relative" id="duaContent">
+                    <!-- Dua content goes here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional Audio Player Hub (Collapsible) -->
+            <div id="audioPlayerPanel" class="mt-4 pt-2 hidden">
+                <div class="p-3 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-xl border border-emerald-700/20 space-y-3">
+                    <div class="flex items-center justify-between text-xs text-emerald-900 dark:text-emerald-200 font-medium">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-volume-high"></i> مشغل تلاوة الأذكار</span>
+                        <label class="cursor-pointer hover:underline text-emerald-600 dark:text-gold-400 flex items-center gap-1">
+                            <i class="fa-solid fa-file-arrow-up"></i>
+                            <span>تشغيل ملف صوتي من جهازك</span>
+                            <input type="file" id="localAudioFile" accept="audio/*" class="hidden" onchange="loadLocalAudio(event)">
+                        </label>
+                    </div>
+
+                    <!-- Audio element with streaming backup -->
+                    <audio id="mainAudioElement" controls class="w-full h-9 rounded-lg" preload="none">
+                        <!-- High reliable public domain morning azkar / Quran link -->
+                        <source src="https://archive.org/download/Azkar-alsabah-m/azkar-alsabah.mp3" type="audio/mpeg">
+                        متصفحك لا يدعم مشغل الصوتيات.
+                    </audio>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                        * يمكنك الاستماع للتسجيل المدمج، أو النقر على "نطق الذكر" أسفل كل بطاقة للاستماع إليه فوراً.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Azkar Cards List Container -->
+        <div id="azkarList" class="space-y-4">
+            <!-- Dynamic Cards will be rendered here -->
+        </div>
+
+        <!-- Completion Modal / Congrats Banner -->
+        <div id="completionBanner" class="hidden glass-card p-6 rounded-2xl border-2 border-emerald-500 text-center space-y-3">
+            <div class="w-16 h-16 mx-auto rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-600 dark:text-emerald-300 text-3xl">
+                <i class="fa-solid fa-check-double"></i>
+            </div>
+            <h3 class="text-xl font-bold text-emerald-800 dark:text-emerald-200">تقبّل الله طاعتكم وذِكركم</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto">
+                لقد أتممتَ أذكار الصباح كاملة اليوم. جعلها الله حرزاً لك من كل سوء وبركة في يومك ورزقك.
+            </p>
+            <button onclick="resetAllCounters()" class="px-5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition">
+                إعادة البدء من جديد
+            </button>
+        </div>
+    </main>
+
+    <!-- AI Tafseer & Reflection Modal -->
+    <div id="aiTafseerModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-emerald-950 border border-emerald-600/30 rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-fade-in">
+            <div class="p-4 border-b border-slate-200 dark:border-emerald-800/40 flex items-center justify-between bg-emerald-50/50 dark:bg-emerald-900/30">
+                <div class="flex items-center gap-2 text-emerald-800 dark:text-emerald-200">
+                    <i class="fa-solid fa-wand-magic-sparkles text-gold-500"></i>
+                    <h3 id="tafseerModalTitle" class="font-bold text-sm sm:text-base">تدبّر الذكر ومعانيه الإيمانية</h3>
+                </div>
+                <button onclick="closeTafseerModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <div id="tafseerModalBody" class="p-5 overflow-y-auto space-y-4 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+                <!-- Content will be inserted dynamically -->
+            </div>
+
+            <div class="p-3 bg-slate-50 dark:bg-emerald-900/20 border-t border-slate-200 dark:border-emerald-800/40 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400">
+                <span>مدعوم بواسطة ذكاء اصطناعي (Gemini)</span>
+                <button onclick="closeTafseerModal()" class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium transition">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Spiritual Assistant / Chat Dialog -->
+    <div id="aiChatModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-emerald-950 border border-emerald-600/30 rounded-2xl max-w-2xl w-full h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+            <!-- Header -->
+            <div class="p-4 border-b border-slate-200 dark:border-emerald-800/40 flex items-center justify-between bg-emerald-50/50 dark:bg-emerald-900/30">
+                <div class="flex items-center gap-2 text-emerald-800 dark:text-emerald-200">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-sm shadow">
+                        <i class="fa-solid fa-comment-dots"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm">مساعد الأذكار والتدبر الذكي</h3>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400">اسأل عما يُشكل عليك في فضل الأذكار، أوقاتها، أو أسرارها الإيمانية</p>
+                    </div>
+                </div>
+                <button onclick="closeAiChatModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Messages Container -->
+            <div id="chatMessages" class="flex-grow p-4 overflow-y-auto space-y-3 text-xs sm:text-sm">
+                <!-- Welcome greeting -->
+                <div class="flex gap-2.5 items-start">
+                    <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs flex-shrink-0">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-slate-100 dark:bg-emerald-900/40 rounded-2xl rounded-tr-none p-3.5 max-w-[85%] text-slate-800 dark:text-slate-200 leading-relaxed shadow-sm">
+                        السلام عليكم ورحمة الله وبركاته، أنا رفيقك الذكي لتدبّر أذكار الصباح وفهم مقاصدها. يمكنك سؤالي عن:
+                        <ul class="list-disc list-inside mt-2 space-y-1 text-slate-600 dark:text-slate-300">
+                            <li>وقت أذكار الصباح المفضل وما حكم قضائها إن فاتت.</li>
+                            <li>شرح لمعنى كلمة أو دعاء محدد.</li>
+                            <li>فضل المداومة على الأذكار في حياة المسلم اليومية.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pre-made Prompts -->
+            <div class="px-4 py-2 border-t border-slate-200/60 dark:border-emerald-800/30 bg-slate-50/50 dark:bg-emerald-900/10 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-[11px]">
+                <button onclick="setQuickQuestion('ما هو الوقت الأفضل لقراءة أذكار الصباح؟')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white dark:bg-emerald-900/50 border border-slate-200 dark:border-emerald-800/40 text-slate-700 dark:text-slate-300 hover:border-emerald-500 transition">⏰ وقت الأذكار الأفضل؟</button>
+                <button onclick="setQuickQuestion('ما فضل قول سبحان الله وبحمده 100 مرة في الصباح؟')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white dark:bg-emerald-900/50 border border-slate-200 dark:border-emerald-800/40 text-slate-700 dark:text-slate-300 hover:border-emerald-500 transition">✨ فضل التسبيح مئة مرة؟</button>
+                <button onclick="setQuickQuestion('كيف أتدبر سيد الاستغفار وأستحضر معانيه؟')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white dark:bg-emerald-900/50 border border-slate-200 dark:border-emerald-800/40 text-slate-700 dark:text-slate-300 hover:border-emerald-500 transition">🤍 تدبّر سيد الاستغفار</button>
+            </div>
+
+            <!-- Input Form -->
+            <div class="p-3 border-t border-slate-200 dark:border-emerald-800/40 bg-white dark:bg-emerald-950 flex items-center gap-2">
+                <input id="userChatInput" type="text" placeholder="اكتب سؤالك هنا..." onkeydown="if(event.key === 'Enter') sendChatMessage()" class="flex-grow bg-slate-100 dark:bg-emerald-900/30 border border-slate-200 dark:border-emerald-800/50 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition">
+                <button id="sendChatBtn" onclick="sendChatMessage()" class="w-10 h-10 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white flex items-center justify-center transition">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-6 border-t border-slate-200/60 dark:border-emerald-900/30 text-center text-xs text-slate-500 dark:text-slate-400">
+        <p class="font-tajawal">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ • صدقة جارية</p>
+    </footer>
+
+    <!-- Javascript Logic -->
+    <script>
+        // Azkar Full Authentic Database
+        const azkarData = [
+            {
+                id: 1,
+                category: "من القرآن الكريم",
+                title: "آية الكرسي",
+                text: "اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+                count: 1,
+                fadl: "من قالها حين يصبح أُجير من الجن حتى يمسي."
+            },
+            {
+                id: 2,
+                category: "من القرآن الكريم",
+                title: "سورة الإخلاص",
+                text: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ\nقُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ",
+                count: 3,
+                fadl: "تكفيك من كل شيء."
+            },
+            {
+                id: 3,
+                category: "من القرآن الكريم",
+                title: "سورة الفلق",
+                text: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ\nقُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِنْ شَرِّ مَا خَلَقَ ۝ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+                count: 3,
+                fadl: "حفظٌ وحرزٌ من كل مكروه."
+            },
+            {
+                id: 4,
+                category: "من القرآن الكريم",
+                title: "سورة الناس",
+                text: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ\nقُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَهِ النَّاسِ ۝ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ",
+                count: 3,
+                fadl: "حماية ووقاية من وسوسة الشياطين والجن والإنس."
+            },
+            {
+                id: 5,
+                category: "دعاء الاستغفار",
+                title: "سيّد الاستغفار",
+                text: "اللَّهُمَّ أَنْتَ رَبِّي لا إِلَهَ إِلا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لا يَغْفِرُ الذُّنُوبَ إِلا أَنْتَ.",
+                count: 1,
+                fadl: "من قالها موقناً بها حين يصبح فمات من يومه دخل الجنة."
+            },
+            {
+                id: 6,
+                category: "دعاء الصباح",
+                title: "أصبحنا وأصبح الملك لله",
+                text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لا إِلَهَ إِلا اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ.",
+                count: 1,
+                fadl: "اعتراف بملك الله وسؤال الخير والاستعاذة من الشرور."
+            },
+            {
+                id: 7,
+                category: "دعاء التوحيد والتوكل",
+                title: "اللهم بك أصبحنا",
+                text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.",
+                count: 1,
+                fadl: "بداية اليوم بالاستسلام لله والتوكل عليه."
+            },
+            {
+                id: 8,
+                category: "سؤال العافية والسلامة",
+                title: "دعاء العافية والستر",
+                text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي، اللَّهُمَّ اسْتُرْ عَوْرَاتِي، وَآمِنْ رَوْعَاتِي، اللَّهُمَّ احْفَظْنِي مِنْ بَيْنِ يَدَيَّ، وَمِنْ خَلْفِي، وَعَنْ يَمِينِي، وَعَنْ شِمَالِي، وَمِنْ فَوْقِي، وَأَعُوذُ بِعَظَمَتِكَ أَنْ أُغْتَالَ مِنْ تَحْتِي.",
+                count: 1,
+                fadl: "حفظ تام من جميع الجهات الست للإنسان."
+            },
+            {
+                id: 9,
+                category: "الحفظ والاستعاذة",
+                title: "دعاء فاطر السماوات والأرض",
+                text: "اللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَالأَرْضِ، رَبَّ كُلِّ شَيْءٍ وَمَلِيكَهُ، أَشْهَدُ أَنْ لا إِلَهَ إِلا أَنْتَ، أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِي سُوءًا أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ.",
+                count: 1,
+                fadl: "حماية النفس من المهالك ووساوس الشيطان."
+            },
+            {
+                id: 10,
+                category: "الحفظ من كل سوء",
+                title: "بسم الله الذي لا يضر مع اسمه شيء",
+                text: "بِسْمِ اللَّهِ الَّذِي لا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الأَرْضِ وَلا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ.",
+                count: 3,
+                fadl: "لم يضره شيء حتى يمسي."
+            },
+            {
+                id: 11,
+                category: "الرضا والإيمان",
+                title: "رضيت بالله رباً",
+                text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالإِسْلامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا.",
+                count: 3,
+                fadl: "كان حقاً على الله أن يرضيه يوم القيامة."
+            },
+            {
+                id: 12,
+                category: "سؤال العافية",
+                title: "عافني في بدني وسمعي وبصري",
+                text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لا إِلَهَ إِلا أَنْتَ. اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لا إِلَهَ إِلا أَنْتَ.",
+                count: 3,
+                fadl: "حفظ الحواس والبدن وسؤال السلامة من الفقر والعذاب."
+            },
+            {
+                id: 13,
+                category: "الاستعانة بالله",
+                title: "يا حي يا قيوم برحمتك أستغيث",
+                text: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ.",
+                count: 1,
+                fadl: "تفويض الأمور لله والاستعانة بأسمائه العظمى."
+            },
+            {
+                id: 14,
+                category: "الفطرة السليمة",
+                title: "أصبحنا على فطرة الإسلام",
+                text: "أَصْبَحْنَا عَلَى فِطْرَةِ الإِسْلامِ، وَعَلَى كَلِمَةِ الإِخْلاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِينَ.",
+                count: 1,
+                fadl: "تجديد العهد على دين التوحيد والفطرة السليمة."
+            },
+            {
+                id: 15,
+                category: "التوكل والكفاية",
+                title: "حسبي الله لا إله إلا هو",
+                text: "حَسْبِيَ اللَّهُ لا إِلَهَ إِلا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.",
+                count: 7,
+                fadl: "كفاه الله ما أهمه من أمر دنياه وآخرته."
+            },
+            {
+                id: 16,
+                category: "الرزق والعلم",
+                title: "اللهم إني أسألك علماً نافعاً",
+                text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا.",
+                count: 1,
+                fadl: "دعاء جامع لبركة اليوم في الرزق والعلم والعمل."
+            },
+            {
+                id: 17,
+                category: "عظيم التسبيح",
+                title: "سبحان الله وبحمده عدد خلقه",
+                text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ.",
+                count: 3,
+                fadl: "تزن ساعات طويلة من الذكر والتسبيح."
+            },
+            {
+                id: 18,
+                category: "مغفرة الذنوب",
+                title: "التسبيح والتحميد",
+                text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.",
+                count: 100,
+                fadl: "حُطّت خطاياه وإن كانت مثل زبد البحر، ولم يأتِ أحدٌ بأفضل مما جاء به إلا من قال مثله."
+            },
+            {
+                id: 19,
+                category: "التهليل والتوحيد",
+                title: "لا إله إلا الله وحده لا شريك له",
+                text: "لا إِلَهَ إِلا اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.",
+                count: 10,
+                fadl: "كانت له عدل أربع رقاب من ولد إسماعيل، وحرزاً من الشيطان."
+            },
+            {
+                id: 20,
+                category: "الاستغفار والتوبة",
+                title: "أستغفر الله وأتوب إليه",
+                text: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ.",
+                count: 100,
+                fadl: "سنة النبي ﷺ واطمئنان القلب وتفريج الهموم."
+            },
+            {
+                id: 21,
+                category: "الصلاة على النبي",
+                title: "الصلاة الإبراهيمية",
+                text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ.",
+                count: 10,
+                fadl: "من صلى عليّ حين يصبح عشراً أدركته شفاعتي يوم القيامة."
+            }
+        ];
+
+        // State Store
+        let userProgress = {};
+        let currentFontScale = 1; // 1 = normal, 1.15 = large, etc.
+        let isAutoPlaying = false;
+        let currentSpeechIndex = -1;
+        let audioCtx = null;
+
+        // Initialize Web Audio API for soft tones
+        function initAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // Play gentle chime tone upon tap
+        function playChime(isCompletion = false) {
+            try {
+                initAudioContext();
+                if (!audioCtx) return;
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+                if (isCompletion) {
+                    // Two-tone bell for completion
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(587.33, now); // D5
+                    osc.frequency.exponentialRampToValueAtTime(880, now + 0.15); // A5
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+                    osc.start(now);
+                    osc.stop(now + 0.6);
+                } else {
+                    // Soft gentle tap click/ping
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+                    osc.start(now);
+                    osc.stop(now + 0.18);
+                }
+            } catch (e) {
+                console.log("Audio feedback error:", e);
+            }
+        }
+
+        // Load progress from localStorage
+        function loadStoredProgress() {
+            try {
+                const saved = localStorage.getItem('morning_azkar_progress_v2');
+                if (saved) {
+                    userProgress = JSON.parse(saved);
+                } else {
+                    resetCountersState();
+                }
+            } catch (e) {
+                resetCountersState();
+            }
+        }
+
+        function resetCountersState() {
+            userProgress = {};
+            azkarData.forEach(item => {
+                userProgress[item.id] = 0;
+            });
+        }
+
+        function saveProgress() {
+            try {
+                localStorage.setItem('morning_azkar_progress_v2', JSON.stringify(userProgress));
+            } catch (e) {}
+            updateGlobalProgress();
+        }
+
+        // Render Cards
+        function renderCards() {
+            const container = document.getElementById('azkarList');
+            container.innerHTML = '';
+
+            azkarData.forEach((item, index) => {
+                const currentCount = userProgress[item.id] || 0;
+                const isFinished = currentCount >= item.count;
+
+                const card = document.createElement('div');
+                card.id = `zkr-card-${item.id}`;
+                card.className = `glass-card rounded-2xl p-5 md:p-6 transition-all duration-300 relative overflow-hidden ${isFinished ? 'completed-glow' : 'hover:border-emerald-600/30'}`;
+
+                // Formatted text for styling
+                const formattedText = item.text.replace(/\n/g, '<br>');
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-3 mb-2">
+                        <div>
+                            <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100/70 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 mb-1">
+                                ${item.category}
+                            </span>
+                            <h3 class="text-lg font-bold text-slate-800 dark:text-emerald-100">${item.title}</h3>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <!-- AI Tafseer & Explanation Button -->
+                            <button onclick="fetchZikrExplanation(${item.id})" title="تدبر وشرح الذكر بالذكاء الاصطناعي" class="w-8 h-8 rounded-lg flex items-center justify-center text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 border border-amber-500/20 transition">
+                                <i class="fa-solid fa-sparkles text-xs"></i>
+                            </button>
+                            <button onclick="readSingleZikr(${item.id})" id="speech-btn-${item.id}" title="نطق بالصوت" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/50 transition">
+                                <i class="fa-solid fa-volume-high text-xs"></i>
+                            </button>
+                            <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-emerald-950/60 font-semibold text-slate-600 dark:text-slate-300">
+                                التكرار: ${item.count}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Zikr Text -->
+                    <div class="my-4 py-2 border-y border-dashed border-slate-200 dark:border-emerald-900/50">
+                        <p id="zkr-text-${item.id}" class="font-quran leading-loose text-justify text-slate-900 dark:text-slate-100 zkr-content" style="font-size: ${1.25 * currentFontScale}rem;">
+                            ${formattedText}
+                        </p>
+                    </div>
+
+                    <!-- Fadl / Virtue -->
+                    <div class="flex items-center gap-2 text-xs text-emerald-700 dark:text-gold-400/90 mb-4">
+                        <i class="fa-regular fa-lightbulb"></i>
+                        <span>${item.fadl}</span>
+                    </div>
+
+                    <!-- Bottom Action Toolbar -->
+                    <div class="flex items-center justify-between gap-3 pt-2">
+                        <!-- Direct Action Button / Counter Trigger -->
+                        <button onclick="handleZikrClick(${item.id})" class="flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-3 transition duration-200 select-none shadow-sm ${
+                            isFinished
+                            ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 font-bold cursor-default'
+                            : 'bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold'
+                        }">
+                            <i class="${isFinished ? 'fa-solid fa-check text-sm' : 'fa-solid fa-hand-pointer text-sm'}"></i>
+                            <span>${isFinished ? 'تم بحمد الله' : 'سبّح / اضغط هنا'}</span>
+                            <span class="bg-black/15 dark:bg-white/15 px-2.5 py-0.5 rounded-lg text-sm font-tajawal">
+                                ${currentCount} / ${item.count}
+                            </span>
+                        </button>
+
+                        <!-- Single Reset -->
+                        <button onclick="resetIndividualZikr(${item.id})" title="تصفير هذا الذكر" class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-emerald-950/50 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/40 text-slate-500 dark:text-slate-400 flex items-center justify-center transition border border-emerald-900/10">
+                            <i class="fa-solid fa-arrow-rotate-left text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('totalItemsCount').textContent = azkarData.length;
+            updateGlobalProgress();
+        }
+
+        // Tap on Card or button
+        function handleZikrClick(id) {
+            initAudioContext();
+            const item = azkarData.find(z => z.id === id);
+            if (!item) return;
+
+            let cur = userProgress[id] || 0;
+            if (cur < item.count) {
+                cur++;
+                userProgress[id] = cur;
+                const isFinished = cur >= item.count;
+                playChime(isFinished);
+
+                // Add tactile pulse animation
+                const card = document.getElementById(`zkr-card-${id}`);
+                if (card) {
+                    card.classList.remove('animate-tap');
+                    void card.offsetWidth; // trigger reflow
+                    card.classList.add('animate-tap');
+                }
+
+                saveProgress();
+                renderCards();
+            }
+        }
+
+        // Reset individual zikr
+        function resetIndividualZikr(id) {
+            userProgress[id] = 0;
+            saveProgress();
+            renderCards();
+        }
+
+        // Reset all counters
+        function resetAllCounters() {
+            resetCountersState();
+            saveProgress();
+            renderCards();
+            document.getElementById('completionBanner').classList.add('hidden');
+        }
+
+        // Global Progress Bar and Percent Calculation
+        function updateGlobalProgress() {
+            let totalRequired = 0;
+            let totalDone = 0;
+            let completedItems = 0;
+
+            azkarData.forEach(item => {
+                totalRequired += item.count;
+                const userCount = Math.min(userProgress[item.id] || 0, item.count);
+                totalDone += userCount;
+                if (userCount >= item.count) {
+                    completedItems++;
+                }
+            });
+
+            const percent = totalRequired > 0 ? Math.round((totalDone / totalRequired) * 100) : 0;
+            
+            // Update Top Line Bar
+            document.getElementById('overallProgressBar').style.width = `${percent}%`;
+
+            // Update Circle
+            const circle = document.getElementById('circularProgress');
+            const circumference = 2 * Math.PI * 23; // r = 23 -> ~144.5
+            const offset = circumference - (percent / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+
+            // Text
+            document.getElementById('percentText').textContent = `${percent}%`;
+            document.getElementById('completedItemsCount').textContent = completedItems;
+
+            // If 100% finished show congratulations
+            const banner = document.getElementById('completionBanner');
+            if (percent === 100 && azkarData.length > 0) {
+                banner.classList.remove('hidden');
+            } else {
+                banner.classList.add('hidden');
+            }
+        }
+
+        // Web Speech API - Reading Single or Auto-playing
+        let synth = window.speechSynthesis;
+        let speechUtterance = null;
+
+        function getArabicVoice() {
+            if (!synth) return null;
+            const voices = synth.getVoices();
+            // Try to find Arabic voice (e.g. ar-SA, ar-EG, etc.)
+            return voices.find(v => v.lang.startsWith('ar')) || null;
+        }
+
+        function readSingleZikr(id) {
+            if (!('speechSynthesis' in window)) {
+                showMessage("متصفحك الحالي لا يدعم القارئ الصوتي المدمج (Web Speech API).");
+                return;
+            }
+
+            // If speaking this one, stop
+            if (synth.speaking && currentSpeechIndex === id) {
+                synth.cancel();
+                currentSpeechIndex = -1;
+                resetSpeechButtons();
+                return;
+            }
+
+            synth.cancel();
+            const item = azkarData.find(z => z.id === id);
+            if (!item) return;
+
+            currentSpeechIndex = id;
+            resetSpeechButtons();
+            const btn = document.getElementById(`speech-btn-${id}`);
+            if (btn) btn.innerHTML = '<i class="fa-solid fa-circle-stop text-rose-500"></i>';
+
+            // Clean text for speech synthesis
+            const cleanText = item.text.replace(/۝/g, '').replace(/\n/g, ' ');
+
+            speechUtterance = new SpeechSynthesisUtterance(cleanText);
+            speechUtterance.lang = 'ar-SA';
+            speechUtterance.rate = 0.88; // Calm pace
+            const arabicVoice = getArabicVoice();
+            if (arabicVoice) speechUtterance.voice = arabicVoice;
+
+            speechUtterance.onend = () => {
+                currentSpeechIndex = -1;
+                resetSpeechButtons();
+            };
+
+            speechUtterance.onerror = () => {
+                currentSpeechIndex = -1;
+                resetSpeechButtons();
+            };
+
+            synth.speak(speechUtterance);
+        }
+
+        function resetSpeechButtons() {
+            azkarData.forEach(item => {
+                const b = document.getElementById(`speech-btn-${item.id}`);
+                if (b) b.innerHTML = '<i class="fa-solid fa-volume-high text-xs"></i>';
+            });
+        }
+
+        // Sequential autoplay for all Azkar
+        let autoPlayListIndex = 0;
+        function toggleAutoPlayAll() {
+            if (!('speechSynthesis' in window)) {
+                showMessage("متصفحك لا يدعم قراءة النصوص الصوتية.");
+                return;
+            }
+
+            const btn = document.getElementById('btnAutoPlayAll');
+            const icon = document.getElementById('autoPlayIcon');
+            const text = document.getElementById('autoPlayText');
+
+            if (isAutoPlaying) {
+                // Stop
+                isAutoPlaying = false;
+                synth.cancel();
+                icon.className = 'fa-solid fa-play';
+                text.textContent = 'قراءة صوتية متتالية';
+                btn.classList.remove('bg-rose-600', 'hover:bg-rose-700');
+                btn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+                resetSpeechButtons();
+            } else {
+                // Start
+                isAutoPlaying = true;
+                autoPlayListIndex = 0;
+                icon.className = 'fa-solid fa-stop';
+                text.textContent = 'إيقاف القراءة';
+                btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+                btn.classList.add('bg-rose-600', 'hover:bg-rose-700');
+                playNextInSequence();
+            }
+        }
+
+        function playNextInSequence() {
+            if (!isAutoPlaying) return;
+
+            if (autoPlayListIndex >= azkarData.length) {
+                // Finished all
+                toggleAutoPlayAll();
+                showMessage("تم الانتهاء من تلاوة جميع الأذكار بحمد الله.");
+                return;
+            }
+
+            const item = azkarData[autoPlayListIndex];
+            const card = document.getElementById(`zkr-card-${item.id}`);
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            synth.cancel();
+            const cleanText = item.title + " : " + item.text.replace(/۝/g, '').replace(/\n/g, ' ');
+            speechUtterance = new SpeechSynthesisUtterance(cleanText);
+            speechUtterance.lang = 'ar-SA';
+            speechUtterance.rate = 0.88;
+            const arVoice = getArabicVoice();
+            if (arVoice) speechUtterance.voice = arVoice;
+
+            resetSpeechButtons();
+            const currentBtn = document.getElementById(`speech-btn-${item.id}`);
+            if (currentBtn) currentBtn.innerHTML = '<i class="fa-solid fa-circle-stop text-rose-500"></i>';
+
+            speechUtterance.onend = () => {
+                if (isAutoPlaying) {
+                    autoPlayListIndex++;
+                    setTimeout(playNextInSequence, 600);
+                }
+            };
+
+            speechUtterance.onerror = () => {
+                if (isAutoPlaying) {
+                    autoPlayListIndex++;
+                    setTimeout(playNextInSequence, 600);
+                }
+            };
+
+            synth.speak(speechUtterance);
+        }
+
+        // Font scaling
+        function changeFontSize(delta) {
+            if (delta > 0 && currentFontScale < 1.45) {
+                currentFontScale += 0.08;
+            } else if (delta < 0 && currentFontScale > 0.85) {
+                currentFontScale -= 0.08;
+            }
+            document.querySelectorAll('.zkr-content').forEach(el => {
+                el.style.fontSize = `${1.25 * currentFontScale}rem`;
+            });
+        }
+
+        // Toggle Audio Player panel
+        function toggleAudioPlayerPanel() {
+            const panel = document.getElementById('audioPlayerPanel');
+            panel.classList.toggle('hidden');
+        }
+
+        // Load custom local audio from user device
+        function loadLocalAudio(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const audioPlayer = document.getElementById('mainAudioElement');
+                const fileURL = URL.createObjectURL(file);
+                audioPlayer.src = fileURL;
+                audioPlayer.play();
+            }
+        }
+
+        // Theme Toggle (Dark / Light)
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('azkar_theme', 'light');
+                themeIcon.className = 'fa-solid fa-moon';
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('azkar_theme', 'dark');
+                themeIcon.className = 'fa-solid fa-sun text-gold-400';
+            }
+        }
+
+        function initTheme() {
+            const saved = localStorage.getItem('azkar_theme');
+            const themeIcon = document.getElementById('themeIcon');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                themeIcon.className = 'fa-solid fa-sun text-gold-400';
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeIcon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        // Simple customized notification banner (no alert())
+        function showMessage(msg) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 text-white dark:bg-emerald-900/95 dark:text-emerald-100 px-5 py-2.5 rounded-xl text-xs font-semibold shadow-xl backdrop-blur-sm transition-all duration-300';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        const GEMINI_MODEL = "gemini-3-flash-preview";
+        const apiKey = ""; // Canvas provides key at runtime
+
+        // Helper: Call Gemini generateContent API with Exponential Backoff
+        async function callGeminiApi(userPrompt, systemInstruction = null) {
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userPrompt }] }]
+            };
+
+            if (systemInstruction) {
+                payload.systemInstruction = {
+                    parts: [{ text: systemInstruction }]
+                };
+            }
+
+            let delays = [1000, 2000, 4000];
+            for (let i = 0; i <= delays.length; i++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        const candidate = result.candidates?.[0];
+                        if (candidate && candidate.content?.parts?.[0]?.text) {
+                            return candidate.content.parts[0].text;
+                        }
+                    }
+                } catch (e) {
+                    // silent retry
+                }
+
+                if (i < delays.length) {
+                    await new Promise(res => setTimeout(res, delays[i]));
+                }
+            }
+            throw new Error("عذراً، تعذر الاتصال بمحرك الذكاء الاصطناعي في الوقت الحالي.");
+        }
+
+        async function generatePersonalizedDua() {
+            const mood = document.getElementById('userMoodSelect').value;
+            const btn = document.getElementById('generateDuaBtn');
+            const outputArea = document.getElementById('personalizedDuaOutput');
+            const duaContent = document.getElementById('duaContent');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>جاري الصياغة...</span>';
+            outputArea.classList.remove('hidden');
+            duaContent.innerHTML = '<div class="flex items-center justify-center gap-2 py-4 text-emerald-700 dark:text-emerald-300"><i class="fa-solid fa-circle-notch fa-spin"></i> يقوم الذكاء الاصطناعي بصياغة دعاء نبوي ملائم لنيتك...</div>';
+
+            const systemPrompt = `أنت عالم وباحث إسلامي متخصص في السنة النبوية والأدعية المأثورة. مهمتك صياغة دعاء صباحي هادئ وبليغ وقصير (فقرة واحدة أو اثنتين) متناسب مع نية أو حال المسلم في صباح اليوم. استخدم كلمات نبوية جزلة، واذكر آية أو معنى حديث شريف يبعث على التفاؤل واليقين بالله تعالى. لا تبتدع في الدين واجعل الأسلوب روحانياً ومؤثراً ومكتوباً بالعربية الفصحى مع التشكيل المناسب للأدعية.`;
+            const userPrompt = `صِغ لي دعاء صباحياً مؤثراً ومأثوراً لنية: (${mood}). اجعله مريحاً للقلب ومناسباً لليوم، مصحوباً بكلمة تفاؤل وتثبيت قصيرة.`;
+
+            try {
+                const responseText = await callGeminiApi(userPrompt, systemPrompt);
+                const renderedHtml = typeof marked !== 'undefined' ? marked.parse(responseText) : responseText;
+                duaContent.innerHTML = `
+                    <div class="prose dark:prose-invert max-w-none text-slate-800 dark:text-slate-100">
+                        ${renderedHtml}
+                    </div>
+                    <div class="mt-3 flex items-center justify-between border-t border-emerald-700/10 pt-2 text-xs">
+                        <span class="text-emerald-600 dark:text-emerald-400 font-semibold"><i class="fa-solid fa-check"></i> دعاء مبارك إن شاء الله</span>
+                        <button onclick="copyGeneratedDua()" class="text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-300 flex items-center gap-1">
+                            <i class="fa-regular fa-copy"></i> نسخ
+                        </button>
+                    </div>
+                `;
+            } catch (err) {
+                duaContent.innerHTML = `<span class="text-rose-500">حدث خطأ أثناء صياغة الدعاء. يرجى التحقق من الاتصال وإعادة المحاولة.</span>`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-sparkles"></i> <span>صياغة دعاء</span>';
+            }
+        }
+
+        function copyGeneratedDua() {
+            const duaContent = document.getElementById('duaContent');
+            const textToCopy = duaContent.innerText;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showMessage("تم نسخ الدعاء إلى الحافظة بنجاح ✨");
+        }
+
+        async function fetchZikrExplanation(id) {
+            const item = azkarData.find(z => z.id === id);
+            if (!item) return;
+
+            const modal = document.getElementById('aiTafseerModal');
+            const title = document.getElementById('tafseerModalTitle');
+            const body = document.getElementById('tafseerModalBody');
+
+            title.innerHTML = `تدبّر: ${item.title}`;
+            body.innerHTML = `
+                <div class="text-center py-10 space-y-3">
+                    <i class="fa-solid fa-circle-notch fa-spin text-3xl text-emerald-600"></i>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-tajawal">جاري استحضار المعاني الإيمانية واللطائف النبوية للذكر...</p>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+
+            const systemPrompt = `أنت موجّه إيماني وباحث في فقه الأدعية والأذكار. اشرح الذكر المعطى بأسلوب تدبّري بديع، يشمل:
+1. المعنى العام ومقصد الذكر.
+2. أسرار الكلمات ومعانيها الدقيقة.
+3. الأثر النفسي والروحي على يوم المسلم.
+4. خطوة عملية لتطبيق معنى الذكر طوال اليوم.
+اجعل الإجابة منسقة بعناوين فرعية ونقاط واضحة وجميلة وسهلة القراءة.`;
+
+            const userPrompt = `اشرح وتدبر هذا الذكر من أذكار الصباح بالتفصيل الإيماني الجميل:
+عنوان الذكر: ${item.title}
+نص الذكر: "${item.text}"
+الفضل المأثور: "${item.fadl}"`;
+
+            try {
+                const responseText = await callGeminiApi(userPrompt, systemPrompt);
+                const htmlContent = typeof marked !== 'undefined' ? marked.parse(responseText) : responseText;
+                body.innerHTML = `
+                    <div class="p-3 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl mb-4 border border-emerald-600/20 font-quran text-slate-800 dark:text-slate-100 text-base leading-loose">
+                        ${item.text.replace(/\n/g, '<br>')}
+                    </div>
+                    <div class="prose dark:prose-invert max-w-none text-slate-800 dark:text-slate-200">
+                        ${htmlContent}
+                    </div>
+                `;
+            } catch (err) {
+                body.innerHTML = `
+                    <div class="text-center py-6 text-rose-500 space-y-2">
+                        <i class="fa-solid fa-triangle-exclamation text-2xl"></i>
+                        <p class="text-xs">تعذر جلب الشرح الآن، يرجى المحاولة لاحقاً.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function closeTafseerModal() {
+            document.getElementById('aiTafseerModal').classList.add('hidden');
+        }
+
+        function openAiChatModal() {
+            document.getElementById('aiChatModal').classList.remove('hidden');
+            const input = document.getElementById('userChatInput');
+            setTimeout(() => input.focus(), 100);
+        }
+
+        function closeAiChatModal() {
+            document.getElementById('aiChatModal').classList.add('hidden');
+        }
+
+        function setQuickQuestion(q) {
+            document.getElementById('userChatInput').value = q;
+            sendChatMessage();
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('userChatInput');
+            const question = input.value.trim();
+            if (!question) return;
+
+            input.value = '';
+            const messagesContainer = document.getElementById('chatMessages');
+
+            // Append user bubble
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.className = 'flex gap-2.5 items-start justify-end';
+            userMsgDiv.innerHTML = `
+                <div class="bg-emerald-600 text-white rounded-2xl rounded-tl-none p-3 max-w-[85%] text-xs sm:text-sm leading-relaxed shadow-sm">
+                    ${question}
+                </div>
+                <div class="w-7 h-7 rounded-full bg-slate-200 dark:bg-emerald-900 text-slate-700 dark:text-emerald-200 flex items-center justify-center text-xs flex-shrink-0">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            `;
+            messagesContainer.appendChild(userMsgDiv);
+
+            // Append AI thinking placeholder
+            const aiMsgDiv = document.createElement('div');
+            aiMsgDiv.className = 'flex gap-2.5 items-start';
+            const tempId = 'ai-loading-' + Date.now();
+            aiMsgDiv.id = tempId;
+            aiMsgDiv.innerHTML = `
+                <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs flex-shrink-0">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="bg-slate-100 dark:bg-emerald-900/40 rounded-2xl rounded-tr-none p-3 max-w-[85%] text-xs sm:text-sm text-slate-500 dark:text-slate-300 flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-circle-notch fa-spin text-emerald-600"></i>
+                    <span>جاري البحث والإجابة...</span>
+                </div>
+            `;
+            messagesContainer.appendChild(aiMsgDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            const systemPrompt = `أنت مرشد وباحث موثوق في الأذكار الإسلامية والحديث النبوي الشريف وفقه اليوم والليلة. أجب على أسئلة المستخدم بدقة، مستشهداً بالأحاديث الصحيحة، وبأسلوب لطيف ورحب ومختصر ومباشر. نظّم إجابتك باستخدام النقاط أو الفقرات القصيرة.`;
+
+            try {
+                const responseText = await callGeminiApi(question, systemPrompt);
+                const renderedHtml = typeof marked !== 'undefined' ? marked.parse(responseText) : responseText;
+                const bubble = document.getElementById(tempId);
+                if (bubble) {
+                    bubble.innerHTML = `
+                        <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs flex-shrink-0">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-slate-100 dark:bg-emerald-900/40 rounded-2xl rounded-tr-none p-3.5 max-w-[85%] text-slate-800 dark:text-slate-200 text-xs sm:text-sm leading-relaxed prose dark:prose-invert shadow-sm">
+                            ${renderedHtml}
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                const bubble = document.getElementById(tempId);
+                if (bubble) {
+                    bubble.innerHTML = `
+                        <div class="w-7 h-7 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs flex-shrink-0">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div class="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/40 rounded-2xl rounded-tr-none p-3 max-w-[85%] text-xs text-rose-700 dark:text-rose-300">
+                            تعذر الحصول على إجابة في الوقت الحالي، يرجى المحاولة بعد قليل.
+                        </div>
+                    `;
+                }
+            }
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Initialize on page load
+        window.onload = function () {
+            initTheme();
+            loadStoredProgress();
+            renderCards();
+
+            // Load speech synthesis voices eagerly
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.onvoiceschanged = () => {
+                    // preheat voice list
+                    getArabicVoice();
+                };
+            }
+        };
+    </script>
+</body>
+</html>
